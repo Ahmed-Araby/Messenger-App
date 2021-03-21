@@ -1,0 +1,15 @@
+.message{
+    padding: 10px;
+    margin: 10px;
+    width: fit-content;
+    background-color: gray;
+    border-radius: 25px;
+
+}
+
+.myMessage{
+    margin-left: auto;
+    background-color: blue;
+    color: white;
+
+}
