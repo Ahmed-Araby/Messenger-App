@@ -8,7 +8,13 @@ function ProtectedRoute({path, Component, redirectPath="/signin", ...props}) { /
 
     return (
         <Route path={path}
-               render={ ()=> user? <Component {...props}/> : <Redirect to={redirectPath}/> }
+               render={ (routeProps)=>{
+                return (
+                    user? <Component {...props} {...routeProps}/> 
+                    :
+                    <Redirect to={redirectPath}/> 
+                )
+                }}
         >        
         </Route>        
     )

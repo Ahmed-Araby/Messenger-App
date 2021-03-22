@@ -49,9 +49,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignIn() {
+function SignIn(props) {
   const classes = useStyles();
+  const {history} =  props;
 
+  async function handleGoogleSignIn(e) 
+  {
+    let result = await googleSignIn()
+    if(result){
+      history.push('/home');
+    }
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -104,7 +112,7 @@ function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={()=> googleSignIn()}
+            onClick={handleGoogleSignIn}
           >
             Sign In With Google
           </Button>
