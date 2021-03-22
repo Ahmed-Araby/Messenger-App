@@ -1,17 +1,11 @@
 import React from 'react'
 import GoogleButton from 'react-google-button'
 
-import {googleSignIn} from "../FireBase/Auth";
-
 function Home() {
 
     return (
         <div>
-            <button onClick={()=>{
-                googleSignIn();
-            }}>
-            sing in 
-             </button>            
+            <h1> Messenger App </h1>
         </div>
     )
 }

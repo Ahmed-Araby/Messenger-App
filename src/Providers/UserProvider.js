@@ -23,7 +23,7 @@ function UserProvider({children}) {
 
     return (
         <div>
-            <userContext.Provider value={user || {userId:1, userName:"ahmed Araby"}} >
+            <userContext.Provider value={user} >
                 {children}
             </userContext.Provider>
         </div>
