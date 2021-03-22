@@ -1,4 +1,5 @@
-# Chat App, work in the basis of channels, a bunch of users could make a channel and start chaing on it.
+# Messenger App
+work in the basis of channels, a bunch of users could make a channel and start chaing on it.
 
 ## Technologies Used
 * React
