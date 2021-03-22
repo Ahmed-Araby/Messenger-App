@@ -14,10 +14,10 @@ function Message({msg}) {
     const userName = msg.userName;
     const text = msg.text;
     const user = useContext(userContext);
-    alert(user.userId);
+
     return (
         <Card >
-            <CardContent className={"message " + (userId==3?"myMessage":"")}>
+            <CardContent className={"message " + (userId==user.uid?"myMessage":"")}>
             {userName}:
                 <Typography                             
                             variant='h5'

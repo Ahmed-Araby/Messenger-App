@@ -6,8 +6,8 @@ import {Message} from './Message';
 
 export  function Channel() {
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([{userId:1, userName:"Ahmed Araby", text:"Hi"},
-                                                {userId:2, userName:"Ahmed Araby2", text:"Hi man"}]);
+    const [messages, setMessages] = useState([{userId:2, userName:"Ahmed Araby", text:"Hi"},
+                                                {userId:3, userName:"Ahmed Araby2", text:"Hi man"}]);
     
     const handleWriteMessage = (event)=>{
         setMessage(event.target.value);
@@ -15,7 +15,7 @@ export  function Channel() {
 
     const handleSendMessage = (event)=>{
         setMessages([...messages, 
-                     {userId:3, userName:"unKnown", text:message}
+                     {userId:"Bc3dthTT8HhEbrbg6uHz1TAYsLI3", userName:"unKnown", text:message}
                     ]);
     }
     
