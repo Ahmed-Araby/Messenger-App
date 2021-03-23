@@ -6,20 +6,24 @@ import firebase from "firebase/app";
 // Add the Firebase products that you want to use
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/database"; // real time data base.
 
 const firebaseConfig = {
-    apiKey: "AIzaSyD_OUIyxfZIFdGyrl3JgOo8I-8VylYCY60",
-    authDomain: "facebook-messengr-clone.firebaseapp.com",
-    projectId: "facebook-messengr-clone",
-    storageBucket: "facebook-messengr-clone.appspot.com",
-    messagingSenderId: "823056108528",
-    appId: "1:823056108528:web:4a4e595bd99202a7c8ab35"
+  apiKey: "AIzaSyD_OUIyxfZIFdGyrl3JgOo8I-8VylYCY60",
+  authDomain: "facebook-messengr-clone.firebaseapp.com",
+  databaseURL: "https://facebook-messengr-clone-default-rtdb.firebaseio.com",
+  projectId: "facebook-messengr-clone",
+  storageBucket: "facebook-messengr-clone.appspot.com",
+  messagingSenderId: "823056108528",
+  appId: "1:823056108528:web:4a4e595bd99202a7c8ab35"
 };
+
 
 
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 const fireAuth = firebase.auth();
+const RealTimeDB = firebase.database();
 
-export {fireAuth, firebase};
+export {fireAuth, firebase, RealTimeDB};

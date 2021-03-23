@@ -10,14 +10,14 @@ import "../Css/message.css";
 import {userContext} from "../Providers/UserProvider"
 
 function Message({msg}) {
-    const userId = msg.userId;
-    const userName = msg.userName;
+    const sender_id = msg.sender_id;
+    const userName = msg.userName || "UnKnown";
     const text = msg.text;
     const user = useContext(userContext);
 
     return (
         <Card >
-            <CardContent className={"message " + (userId==user.uid?"myMessage":"")}>
+            <CardContent className={"message " + (sender_id==user.uid?"myMessage":"")}>
             {userName}:
                 <Typography                             
                             variant='h5'

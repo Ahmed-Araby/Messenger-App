@@ -1,29 +1,97 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { FormControl, FormHelperText, Input, InputLabel } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-
+import {getMessages, RealTimeDB} from "../FireBase/RealTimeDb"
 import {Message} from './Message';
 
-export  function Channel() {
+import {userContext} from "../Providers/UserProvider"
+
+export  function Channel(props) {
+    const user = useContext(userContext);
+
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([{userId:2, userName:"Ahmed Araby", text:"Hi"},
-                                                {userId:3, userName:"Ahmed Araby2", text:"Hi man"}]);
+    const [messagesList, setMessagesList] = useState([]);
+
+    const match = props.match;
+    const message_limit = 100;
     
     const handleWriteMessage = (event)=>{
         setMessage(event.target.value);
     }
 
-    const handleSendMessage = (event)=>{
-        setMessages([...messages, 
-                     {userId:"Bc3dthTT8HhEbrbg6uHz1TAYsLI3", userName:"unKnown", text:message}
-                    ]);
+    const handleRecieveMessage = ()=>{
+        let channel_id =  match.params['channel_id'];        
+        //let channel_messages_ref = 
+        RealTimeDB.ref("channels/" + channel_id + "/" +"messages")
+        .limitToLast(1)
+        .on('child_added', function(snapshot, backRef){
+            let new_message = snapshot.val();
+            let last_message = null;
+            let length = messagesList.length;
+            
+            if(length > 0)
+                last_message = messagesList[length-1];
+            if(last_message &&
+                last_message.sender_id == new_message.sender_id &&
+                 last_message.timeStamp == new_message.timeStamp)
+                return ; // same copy of the message
+            
+            setMessagesList((prv)=>{
+                return [...prv, new_message]; 
+            });
+        })
     }
-    
+
+    const handleSendMessage = (event)=>{
+
+        let channel_id =  match.params['channel_id'];        
+        const cur_timeStamp = Date.now();
+        const message_id = cur_timeStamp.toString(10) + "_" + user.uid;
+        const new_message = {  sender_id:user.uid,
+                                    userName:user.userName || "unKnown",
+                                    text:message,
+                                    message_id:message_id,
+                                    timeStamp:Date.now()};
+
+         RealTimeDB.ref("channels/" + channel_id  + "/messages/" + message_id)
+         .set(new_message);
+        
+    }
+
+    useEffect(() => {
+
+        let channel_id =  match.params['channel_id'];        
+        let channel_messages_ref = RealTimeDB.ref("channels/" + channel_id + "/" +"messages");
+
+        channel_messages_ref.limitToLast(message_limit).get()
+        .then(function(snapshot){
+     
+
+            if(snapshot.exists)
+            {
+                let tmpMessagesList = []
+                for(const prop in snapshot.val()){
+                    tmpMessagesList.push(snapshot.val()[[prop]]);
+                }
+                //let length = tmpMessagesList.length;
+                //set_last_timestamp(22);
+                //alert(last_timestamp);
+                setMessagesList(tmpMessagesList);
+            }
+            else{
+                console.log("there is not ")
+            }
+        })
+        .catch(err=> console.log("failed to load initial messages ", err));
+
+        handleRecieveMessage();
+    }, [])
+
     return (
         <div>
         
         {
-            messages.map((msg)=> <Message key={msg.userId} msg={msg}/> )        
+            messagesList.map((msg)=> <Message key={msg.message_id} msg={msg}/> )        
         }
 
         <FormControl>

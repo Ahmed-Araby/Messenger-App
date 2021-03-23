@@ -16,14 +16,14 @@ import {userContext, UserProvider} from "./Providers/UserProvider"
 function App() {
   const user = useContext(userContext);
   //console.log("user from app --- ", user);
-
+  
   return (
     <BrowserRouter>
       <Switch>
         {!user && <Route path='/signin' component={SignIn} /> }
 
         <ProtectedRoute path="/home" Component={Home}/>
-        <ProtectedRoute path="/channel" Component={Channel}/>
+        <ProtectedRoute path="/channel/:channel_id" Component={Channel}/>
 
         {user && <Route component={Home} /> }
       </Switch>
