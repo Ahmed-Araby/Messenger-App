@@ -20,8 +20,8 @@ export  function Channel(props) {
     }
 
     const handleRecieveMessage = ()=>{
+        // observer only the latest new message in the channel.
         let channel_id =  match.params['channel_id'];        
-        //let channel_messages_ref = 
         RealTimeDB.ref("channels/" + channel_id + "/" +"messages")
         .limitToLast(1)
         .on('child_added', function(snapshot, backRef){
@@ -44,47 +44,39 @@ export  function Channel(props) {
 
     const handleSendMessage = (event)=>{
 
-        let channel_id =  match.params['channel_id'];        
-        const cur_timeStamp = Date.now();
-        const message_id = cur_timeStamp.toString(10) + "_" + user.uid;
+        let channel_id =  match.params['channel_id'];   
+        let message_id = Date.now().toString(10) + "_" + user.uid;     
         const new_message = {  sender_id:user.uid,
                                     userName:user.userName || "unKnown",
                                     text:message,
                                     message_id:message_id,
                                     timeStamp:Date.now()};
-
-         RealTimeDB.ref("channels/" + channel_id  + "/messages/" + message_id)
-         .set(new_message);
-        
+        /** this way messages will always be in the right order */
+        let key = RealTimeDB.ref("channels/" + channel_id  + "/messages").push().key;
+        RealTimeDB.ref("channels/" + channel_id  + "/messages/" + key).set(new_message);
     }
 
     useEffect(() => {
-
+        /** load last 100 message int the channel */
         let channel_id =  match.params['channel_id'];        
         let channel_messages_ref = RealTimeDB.ref("channels/" + channel_id + "/" +"messages");
-
         channel_messages_ref.limitToLast(message_limit).get()
         .then(function(snapshot){
-     
-
             if(snapshot.exists)
             {
                 let tmpMessagesList = []
                 for(const prop in snapshot.val()){
                     tmpMessagesList.push(snapshot.val()[[prop]]);
                 }
-                //let length = tmpMessagesList.length;
-                //set_last_timestamp(22);
-                //alert(last_timestamp);
                 setMessagesList(tmpMessagesList);
             }
             else{
-                console.log("there is not ")
+                console.log("there is no snapshot ")
             }
         })
         .catch(err=> console.log("failed to load initial messages ", err));
 
-        handleRecieveMessage();
+        handleRecieveMessage(); // register the observer for the last message.
     }, [])
 
     return (
