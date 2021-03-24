@@ -5,7 +5,7 @@ import {userContext} from "../Providers/UserProvider";
 import {getChannels} from "../FireBase/RealTimeDb";
 
 import {CreateChannel} from './Forms/CreateChannel';
-
+import {JoinChannel} from "./Forms/JoinChannel"
 function Home(props) {
     const [channels, setChannels] = useState([]);
     const [pageNum, setPageNum] = useState(0);
@@ -32,6 +32,8 @@ function Home(props) {
         <>
          <CreateChannel />
          <br></br>
+         <br></br>
+         <JoinChannel />
         {
             channels.map(chn=> {
                 return(

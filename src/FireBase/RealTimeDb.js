@@ -47,5 +47,31 @@ async function getChannels(user, pageNum)
     return channels.val();
 }
 
+async function channelExists_id(channel_id)
+{
+    try{
+        let snapshot = await RealTimeDB.ref('channels')
+            .orderByKey() // keys are already indexed
+            .equalTo(channel_id)
+            .get();
+        return snapshot;
+    }
+    catch (err){
+        throw err;
+    }
+}
+
+async function attachChannel(channelData, userId)
+{
+    // may be we need to check if we already attached to this channel
+    try{
+        await RealTimeDB.ref('users/' + userId + "/channels/" + channelData.id).set(channelData);
+    }
+    catch (err){
+        throw err;
+    }
+}
+
 export {getMessages, RealTimeDB};
 export {getUserData, getChannels};
+export {attachChannel, channelExists_id}
