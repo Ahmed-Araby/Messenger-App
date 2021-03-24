@@ -4,6 +4,8 @@ import GoogleButton from 'react-google-button'
 import {userContext} from "../Providers/UserProvider";
 import {getChannels} from "../FireBase/RealTimeDb";
 
+import {CreateChannel} from './Forms/CreateChannel';
+
 function Home(props) {
     const [channels, setChannels] = useState([]);
     const [pageNum, setPageNum] = useState(0);
@@ -28,6 +30,8 @@ function Home(props) {
 
     return (
         <>
+         <CreateChannel />
+         <br></br>
         {
             channels.map(chn=> {
                 return(
