@@ -1,7 +1,14 @@
 # Messenger App
 work on the idea of channels, a bunch of users could make a channel and start chaing on it.
-#
-APP URL [TO DO --- host the app] 
+
+## Simple Diagram of the System.
+![Architecture_Diagram](https://github.com/Ahmed-Araby/Messenger-App/blob/master/facebook_messenger_clone.png)
+
+## Screen Shot of a working channel.
+![Channel](https://github.com/Ahmed-Araby/Messenger-App/blob/master/channel.png)
+
+## URL
+[TO DO --- host the app] 
 
 ## want to use the app:
 * signin with your google accoutn.
@@ -16,11 +23,6 @@ APP URL [TO DO --- host the app]
 * Firebase for Auth 
 * fireStore for store the messages and sync messages between users of the same channel.
 
-## Simple Diagram of the System.
-![Architecture_Diagram](https://github.com/Ahmed-Araby/Messenger-App/blob/master/facebook_messenger_clone.png)
-
-## Screen Shot of a working channel.
-![Channel](https://github.com/Ahmed-Araby/Messenger-App/blob/master/channel.png)
 
 ## to do:
 - [X] design the Layout of the Data base Documents.
