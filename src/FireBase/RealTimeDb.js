@@ -72,6 +72,30 @@ async function attachChannel(channelData, userId)
     }
 }
 
+async function addChannel(channel_name, user_id)
+{
+    try{
+        const key = await RealTimeDB.ref('channels').push().key;
+        let newChannel = {
+            name:channel_name, 
+            timestamp:Date.now(), 
+            channel_id:key,
+            users:{
+                [user_id]:user_id
+            }
+        };
+        await RealTimeDB.ref('channels/'+key).set(newChannel);
+        return key;
+    }
+    catch (err){
+        /**
+         * is it better to catch the error and rethrow it or
+         * just leave it propogate.
+         */
+        throw err;
+    }
+}
 export {getMessages, RealTimeDB};
 export {getUserData, getChannels};
-export {attachChannel, channelExists_id}
+export {attachChannel, channelExists_id};
+export {addChannel};

@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {RealTimeDB, RealTimeDb} from "../../FireBase/FireBase";
 import {userContext} from "../../Providers/UserProvider";
+import {addChannel} from "../../FireBase/RealTimeDb";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,8 +21,6 @@ export function CreateChannel() {
   const user = useContext(userContext);
 
   const createChannel = async (e)=>{
-    // make sure that there is no channel with the same name
-
     try{
         let snapshot = await RealTimeDB.ref('users/' + user.uid + "/channels/")
         .orderByChild('name')
@@ -29,7 +28,8 @@ export function CreateChannel() {
         .get();
 
         if(!snapshot.val()){
-            let key = RealTimeDB.ref('users/' + user.uid + "/channels").push().key;
+            // create channel
+            let key = await addChannel(channelName, user.uid);
             let newChannel = {
                 id:key, 
                 name:channelName   
