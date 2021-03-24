@@ -5,21 +5,20 @@ import {userContext} from "../Providers/UserProvider";
 import {getChannels} from "../FireBase/RealTimeDb";
 
 import {CreateChannel} from './Forms/CreateChannel';
-import {JoinChannel} from "./Forms/JoinChannel"
+import {JoinChannel} from "./Forms/JoinChannel";
+import {ChannelCard} from "./ChannelCard";
+
 function Home(props) {
     const [channels, setChannels] = useState([]);
     const [pageNum, setPageNum] = useState(0);
     const user = useContext(userContext);
     const {history} = props;
 
-    const handleChooseChannel = (e, channel_id)=>{
-        history.push('/channel/'+channel_id);
-    }
-
     useEffect(async function(){
         let tmpChannels = await getChannels(user, pageNum); // object of channels.
         console.log("---------- channels ",  tmpChannels);
         setChannels((chns)=>{
+            // why heck I did this !!!???
             let newChns = [];
             for(const prop in tmpChannels)
                 newChns.push(tmpChannels[[prop]]);
@@ -27,26 +26,36 @@ function Home(props) {
         });
     }, []);
 
+    const addChannel = (newChannel)=>{
+        for(const ch of channels)
+            if(ch.id == newChannel.id) return ;            
+
+        setChannels((channels)=>{
+            return [...channels, newChannel];
+        })
+    }
 
     return (
-        <>
+        <div>
          <CreateChannel />
          <br></br>
          <br></br>
-         <JoinChannel />
-        {
+         <JoinChannel addChannel={addChannel}/>
+
+         <br></br>
+         <br></br>
+         {
             channels.map(chn=> {
                 return(
                     <>
-                        <button onClick={(e)=>{
-                            handleChooseChannel(e, chn.id);
-                        }}>{chn.name}</button>
-                        <br></br> <br></br>
+                    <ChannelCard channel_name={chn.name}
+                                 channel_id={chn.id}/>
+                    <br></br> <br></br>
                     </>
                 )
             })
         }
-        </>
+        </div>
     )
 }
 

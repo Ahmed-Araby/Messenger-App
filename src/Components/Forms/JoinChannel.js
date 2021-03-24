@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function JoinChannel() {
+export function JoinChannel({addChannel}) {
   const classes = useStyles();
   const [channelId, set_channelId] = useState();
   const user = useContext(userContext);
@@ -31,6 +31,7 @@ export function JoinChannel() {
                 id:channel.channel_id
             };
             await attachChannel(channelData, user.uid);
+            addChannel(channelData); // put the channel on the home list of channels.
             alert("You Joined Channel ", channel.name);
         }
         else{
