@@ -11,7 +11,7 @@ work on the idea of channels, a bunch of users could make a channel and start ch
 [TO DO --- host the app] 
 
 ## want to use the app:
-* signin with your google accoutn.
+* signin with your google account.
 * create a channel.
 * send the channel ID to a friend.
 * now you have a life long channel with your friend or untill my "firebase free quota ends"
@@ -21,7 +21,7 @@ work on the idea of channels, a bunch of users could make a channel and start ch
 ## Technologies Used
 * React
 * Firebase for Auth 
-* fireStore for store the messages and sync messages between users of the same channel.
+* fireStore to store the messages and sync messages between users of the same channel.
 
 
 ## to do:
