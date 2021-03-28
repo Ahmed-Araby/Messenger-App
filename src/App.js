@@ -20,7 +20,7 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        {!user && <Route path='/signin' component={SignIn} /> }
+        {!user && <Route component={SignIn} /> }
 
         <ProtectedRoute path="/home" Component={Home}/>
         <ProtectedRoute path="/channel/:channel_id" Component={Channel}/>
