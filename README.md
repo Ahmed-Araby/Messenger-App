@@ -30,9 +30,10 @@ work on the idea of channels, a bunch of users could make a channel and start ch
 - [X] Build Home Page.
 - [ ] Add fire base user_email and password Sign in.
 - [ ] Replace Firebase with nodeJs server.
-- [ ] Make the RealTimeDB functions names more conventional
-- [ ] Tell the user that he is already in the channel if he is !!.
-- [ ] Listen on the change in user channels.
+- [X] Make the RealTimeDB functions names more conventional
+- [X] Tell the user that he is already in the channel if he is !!.
+- [X] Listen on the change in user channels.
+- [X] Delete Channel Button.
 - [ ] Enhance the user signin and info experience.
-- [ ] Force the messages portion to scroll.
+- [X] Force the messages portion to scroll.
 - [ ] Enhance the channel UI
