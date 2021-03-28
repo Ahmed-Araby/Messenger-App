@@ -56,6 +56,22 @@ export async function userHasChannel_name(user, channelName)
     }
 }
 
+export async function userHasChannel_id(user, channelId)
+{ /** userLevel */
+    try{
+        let snapshot = await RealTimeDB.ref('users/' + user.uid + "/channels/")
+        .orderByKey()
+        .equalTo(channelId)
+        .get();
+        console.log("from user has channel id : ", snapshot.val());
+        return (snapshot.val() ? true : false) ;  //  could this return empty object. !!!!????
+    }
+    catch (err){
+        throw err;
+    }
+}
+
+
 export async function attachChannel(channelData, userId)
 {/**UserLevel */
 

@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import {RealTimeDB, RealTimeDb} from "../../FireBase/FireBase";
 import {userContext} from "../../Providers/UserProvider";
 import {channelExists_id} from "../../FireBase/RealTimeDB/RTDB_channelLevel";
-import {attachChannel} from "../../FireBase/RealTimeDB/RTDB_userLevel";
+import {attachChannel, userHasChannel_id} from "../../FireBase/RealTimeDB/RTDB_userLevel";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +26,10 @@ export function JoinChannel({addChannel}) {
     try{
         let snapshot = await channelExists_id(channelId);
         if(snapshot.val()){
+            if(await userHasChannel_id(user, channelId)){
+              alert("you are already attached to this channel ");
+              return ;
+            }
             let channel = snapshot.val()[channelId]; 
             let channelData ={
                 name:channel.name, 
