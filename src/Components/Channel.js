@@ -5,6 +5,7 @@ import {RealTimeDB} from "../FireBase/RealTimeDB/RTDB_channelLevel"
 import {Message} from './Message';
 
 import {userContext} from "../Providers/UserProvider"
+import "../Css/channel_chat.css"
 
 export  function Channel(props) {
     const user = useContext(userContext);
@@ -81,10 +82,11 @@ export  function Channel(props) {
 
     return (
         <div>
-        
-        {
-            messagesList.map((msg)=> <Message key={msg.message_id} msg={msg}/> )        
-        }
+        <div className="channel_chat">
+            {
+                messagesList.map((msg)=> <Message key={msg.message_id} msg={msg}/> )        
+            }
+        </div>
 
         <FormControl>
             <InputLabel htmlFor="my-input">Message</InputLabel>
