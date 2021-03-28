@@ -4,9 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {RealTimeDB, RealTimeDb} from "../../FireBase/FireBase";
 import {userContext} from "../../Providers/UserProvider";
-import {addChannel,
-        userHasChannel_name,
-        attachChannel} from "../../FireBase/RealTimeDb";
+import {addChannel} from "../../FireBase/RealTimeDB/RTDB_channelLevel";
+import {userHasChannel_name,
+        attachChannel}  from "../../FireBase/RealTimeDB/RTDB_userLevel";
 
 const useStyles = makeStyles((theme) => ({
   root: {

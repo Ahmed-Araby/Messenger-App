@@ -2,7 +2,7 @@ import React , {useState, useEffect, useContext} from 'react'
 import GoogleButton from 'react-google-button'
 
 import {userContext} from "../Providers/UserProvider";
-import {getChannels} from "../FireBase/RealTimeDb";
+import {getChannels} from "../FireBase/RealTimeDB/RTDB_userLevel";
 
 import {CreateChannel} from './Forms/CreateChannel';
 import {JoinChannel} from "./Forms/JoinChannel";
