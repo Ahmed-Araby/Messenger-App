@@ -37,7 +37,7 @@ function Home(props) {
 
     return (
         <div>
-         <CreateChannel />
+         <CreateChannel addChannel_UI={addChannel}/>
          <br></br>
          <br></br>
          <JoinChannel addChannel={addChannel}/>

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function CreateChannel() {
+export function CreateChannel({addChannel_UI}) {
   const classes = useStyles();
   const [channelName, set_channelName] = useState();
   const user = useContext(userContext);
@@ -34,6 +34,7 @@ export function CreateChannel() {
             };
             // attach channel for the user.
             await attachChannel(newChannel, user.uid); //RealTimeDB.ref('users/' + user.uid + "/channels/"+key).set(newChannel);
+            addChannel_UI(newChannel);
             alert("channel created successfuly ");
         }
         else{
