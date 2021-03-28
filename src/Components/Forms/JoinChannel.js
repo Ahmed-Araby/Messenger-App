@@ -44,7 +44,7 @@ export function JoinChannel({addChannel}) {
         alert("failed to Join the Channel with ID : ", channelId);
     }
     return ;
-}
+  }
 
   return (
     <form  className={classes.root} noValidate autoComplete="off">

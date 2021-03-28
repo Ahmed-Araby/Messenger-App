@@ -61,6 +61,20 @@ async function channelExists_id(channel_id)
     }
 }
 
+export async function userHasChannel_name(user, channelName)
+{ 
+    try{
+        let snapshot = await RealTimeDB.ref('users/' + user.uid + "/channels/")
+        .orderByChild('name')
+        .equalTo(channelName)
+        .get();
+        return snapshot;
+    }
+    catch (err){
+        throw err;
+    }
+}
+
 async function attachChannel(channelData, userId)
 {
     // may be we need to check if we already attached to this channel
