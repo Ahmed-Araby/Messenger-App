@@ -1,11 +1,21 @@
 # Messenger App
 work on the idea of channels, a bunch of users could make a channel and start chaing on it.
 
+## Why I build this App:
+to practice my new skills in React and FireBase.
+
+
 ## Simple Diagram of the System.
 ![Architecture_Diagram](https://github.com/Ahmed-Araby/Messenger-App/blob/master/facebook_messenger_clone.png)
 
+
 ## Screen Shot of a working channel.
-![Channel](https://github.com/Ahmed-Araby/Messenger-App/blob/master/channel.png)
+![Channel](https://github.com/Ahmed-Araby/Messenger-App/blob/master/channel_chat.png)
+
+
+## Screen Shot of a Home Page.
+![Home Page](https://github.com/Ahmed-Araby/Messenger-App/blob/master/home_page.png)
+
 
 ## URL
 [TO DO --- host the app] 
@@ -27,11 +37,12 @@ work on the idea of channels, a bunch of users could make a channel and start ch
 * sign in with google email using firebase auth
 * store user data, channels, messages in firebase RealTimeDatabase.
 * Delete Channel
-* deleting channel is carried on using firebase transaction as this operation need to delete data from different location in the DB.
+* deleting channel is carried on using firebase transaction 
+  as this operation need to delete data from different location in the DB.
 * users can create channels
 * users can joins channels that are created by others
 * user can remove him self from channel
-* user see his own messages in different collor then other messages in the channel.
+* user see his own messages in different coller then other messages in the channel.
 * every change happen in the firebase RealTimeDatabase, Reflect in the UI.
 
 ## to do:
