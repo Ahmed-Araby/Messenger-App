@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {RealTimeDB, RealTimeDb} from "../../FireBase/FireBase";
 import {userContext} from "../../Providers/UserProvider";
-import {channelExists_id} from "../../FireBase/RealTimeDB/RTDB_channelLevel";
+import {channelExists_id, addUserToChannel} from "../../FireBase/RealTimeDB/RTDB_channelLevel";
 import {attachChannel, userHasChannel_id} from "../../FireBase/RealTimeDB/RTDB_userLevel";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +36,7 @@ export function JoinChannel({addChannel}) {
                 id:channel.channel_id
             };
             await attachChannel(channelData, user.uid);
+            await addUserToChannel(user, channelId);
             addChannel(channelData); // put the channel on the home list of channels.
             alert("You Joined Channel ", channel.name);
         }

@@ -6,6 +6,16 @@ export async function getMessages()
 
 }
 
+
+export async function addUserToChannel(user, channelId)
+{
+    try{
+        await RealTimeDB.ref('channels/' + channelId + '/users').update({[user.uid]:user.uid})
+    }
+    catch(err){
+        throw err;
+    }
+}
 export async function deleteChannel(user, channelId)
 {
     try{
