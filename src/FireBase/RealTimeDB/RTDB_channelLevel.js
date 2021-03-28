@@ -6,7 +6,18 @@ export async function getMessages()
 
 }
 
-
+export async function deleteChannel(user, channelId)
+{
+    try{
+        await RealTimeDB.ref('channels')
+                    .orderByKey()
+                    .equalTo(channelId)
+                    .remove();
+    }
+    catch (err){
+        throw err;
+    }
+}
 
 export async function channelExists_id(channel_id)
 { // channel level

@@ -1,4 +1,6 @@
+import { userContext } from "../../Providers/UserProvider";
 import {RealTimeDB} from "../FireBase";
+import {deleteChannel} from "./RTDB_channelLevel";
 
 export async function getUserData(user)
 { // user level
@@ -78,6 +80,44 @@ export async function attachChannel(channelData, userId)
     // may be we need to check if we already attached to this channel
     try{
         await RealTimeDB.ref('users/' + userId + "/channels/" + channelData.id).set(channelData);
+    }
+    catch (err){
+        throw err;
+    }
+}
+
+async function getRefs(ref)
+{
+    let snapshot = await ref.get();
+    snapshot.forEach(child => {
+        console.log("ref is :", child.ref);
+    });
+} 
+
+
+export async function leaveChannel(user, channelId)
+{
+    
+    try{
+        let userChannelRef = 'users/' + user.uid + "/channels/" + channelId;
+        let channelUserRef = 'channels/' + channelId + "/users/" + user.uid;
+        let updates = {[userChannelRef]:null,
+                        [channelUserRef]:null}; 
+        console.log("updates", updates);
+        await RealTimeDB.ref().update(updates);
+        alert("sucess 5");
+
+        // delete the channel if it has no more users.
+        RealTimeDB.ref('channels/' + channelId)
+        .transaction((channel)=>{
+            if(channel){
+                if(channel.users)
+                    return channel;
+                return null; // delete channel.
+            }
+            return channel;
+        });
+        return true;
     }
     catch (err){
         throw err;

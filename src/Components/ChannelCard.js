@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -6,6 +6,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from "react-router-dom";
+import {leaveChannel} from "../FireBase/RealTimeDB/RTDB_userLevel";
+import {userContext} from "../Providers/UserProvider";
 
 const useStyles = makeStyles({
   root: {
@@ -36,9 +38,16 @@ const useStyles = makeStyles({
 export function ChannelCard({channel_name, channel_id}) {
   const classes = useStyles();
   const history = useHistory();
-
+  const user = useContext(userContext);
   const handleLeaveChannel = (e, channel_id)=>{
       alert("Leave Channel");
+      try{
+        leaveChannel(user, channel_id);
+        // remove channel from the UI.
+      }
+      catch(err){
+        console.log("failed to leave channel ", err);
+      }
   }
 
   const handleOpenChannel = (e, channel_id)=>{
