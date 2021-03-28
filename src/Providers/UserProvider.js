@@ -14,11 +14,22 @@ function UserProvider({children}) {
     const [user, setUser] = useState(null);
 
     // authentication state observer.
-    fireAuth.onAuthStateChanged(async (user) => {
-        if (user) {
-            console.log("loged user is : ", user);
-            await getUserData(user);
-            setUser(user);
+    fireAuth.onAuthStateChanged(async (authUser) => {
+        if (authUser) {
+            console.log("loged user from AUth is : ", authUser);
+            let userData = await getUserData(authUser);
+            console.log("user Data from RTDB is : ", userData);
+            /** without this checking 
+             * evry time we are assigning new reference to the user state variable 
+             * which cuz this component to rerender 
+             * which will triger this observer call back function
+             * which will cuz the inf loop for updating the user 
+             * 
+             * 
+             * but why authUser alone in setUser is not considered as new reference !!????
+             */
+            if(!user)
+                setUser({...authUser, ...userData});
         } else {
             console.log("user is null");
         }

@@ -49,7 +49,7 @@ export  function Channel(props) {
         let channel_id =  match.params['channel_id'];   
         let message_id = Date.now().toString(10) + "_" + user.uid;     
         const new_message = {  sender_id:user.uid,
-                                    userName:user.userName || "unKnown",
+                                    userName:user.userName || user.displayName,
                                     text:message,
                                     message_id:message_id,
                                     timeStamp:Date.now()};

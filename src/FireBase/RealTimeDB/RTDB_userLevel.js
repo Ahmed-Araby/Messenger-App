@@ -4,6 +4,7 @@ import {deleteChannel} from "./RTDB_channelLevel";
 
 export async function getUserData(user)
 { // user level
+    // max 2 levels of recursion.
     try{
         let user_id = user.uid;
         let snapshot = await RealTimeDB.ref('users/' + user_id).get();
@@ -11,7 +12,7 @@ export async function getUserData(user)
             return snapshot.val();
         else{
             await saveUserData(user);
-            getUserData(); // could cuz info loop !!!.
+            await getUserData(); // could cuz info loop !!!.
             return ;
         }
     }
