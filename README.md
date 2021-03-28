@@ -23,17 +23,27 @@ work on the idea of channels, a bunch of users could make a channel and start ch
 * Firebase for Auth 
 * fireStore to store the messages and sync messages between users of the same channel.
 
+## App Features:
+* sign in with google email using firebase auth
+* store user data, channels, messages in firebase RealTimeDatabase.
+* Delete Channel
+* deleting channel is carried on using firebase transaction as this operation need to delete data from different location in the DB.
+* users can create channels
+* users can joins channels that are created by others
+* user can remove him self from channel
+* user see his own messages in different collor then other messages in the channel.
+* every change happen in the firebase RealTimeDatabase, Reflect in the UI.
 
 ## to do:
 - [X] design the Layout of the Data base Documents.
 - [X] Build the flow of sending and recieving Messages.
 - [X] Build Home Page.
-- [ ] Add fire base user_email and password Sign in.
-- [ ] Replace Firebase with nodeJs server.
 - [X] Make the RealTimeDB functions names more conventional
 - [X] Tell the user that he is already in the channel if he is !!.
 - [X] Listen on the change in user channels.
 - [X] Delete Channel Button.
-- [ ] Enhance the user signin and info experience.
 - [X] Force the messages portion to scroll.
+- [ ] Host the App.
+- [ ] sync the UI with deleting message from fireBase.
 - [ ] Enhance the channel UI
+- [ ] Replace Firebase with nodeJs server and socket.IO
