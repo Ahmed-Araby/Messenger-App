@@ -1,13 +1,7 @@
-import {RealTimeDB} from "./FireBase";
+import {RealTimeDB} from "../FireBase";
 
-async function getMessages()
-{
-
-
-}
-
-async function getUserData(user)
-{
+export async function getUserData(user)
+{ // user level
     try{
         let user_id = user.uid;
         let snapshot = await RealTimeDB.ref('users/' + user_id).get();
@@ -24,8 +18,8 @@ async function getUserData(user)
     }
 }
 
-async function saveUserData(user)
-{
+export async function saveUserData(user)
+{ // user level
     try{
         let user_id = user.uid;
         let new_user = {userName:user.displayName || "UnKnown", 
@@ -41,19 +35,20 @@ async function saveUserData(user)
     return ;
 }
 
-async function getChannels(user, pageNum)
-{
+
+export async function getChannels(user, pageNum)
+{ // user level
     let channels = await RealTimeDB.ref('users/' + user.uid + "/channels").get();
     return channels.val();
 }
 
-async function channelExists_id(channel_id)
-{
+export async function userHasChannel_name(user, channelName)
+{ /** userLevel */
     try{
-        let snapshot = await RealTimeDB.ref('channels')
-            .orderByKey() // keys are already indexed
-            .equalTo(channel_id)
-            .get();
+        let snapshot = await RealTimeDB.ref('users/' + user.uid + "/channels/")
+        .orderByChild('name')
+        .equalTo(channelName)
+        .get();
         return snapshot;
     }
     catch (err){
@@ -61,8 +56,9 @@ async function channelExists_id(channel_id)
     }
 }
 
-async function attachChannel(channelData, userId)
-{
+export async function attachChannel(channelData, userId)
+{/**UserLevel */
+
     // may be we need to check if we already attached to this channel
     try{
         await RealTimeDB.ref('users/' + userId + "/channels/" + channelData.id).set(channelData);
@@ -71,31 +67,3 @@ async function attachChannel(channelData, userId)
         throw err;
     }
 }
-
-async function addChannel(channel_name, user_id)
-{
-    try{
-        const key = await RealTimeDB.ref('channels').push().key;
-        let newChannel = {
-            name:channel_name, 
-            timestamp:Date.now(), 
-            channel_id:key,
-            users:{
-                [user_id]:user_id
-            }
-        };
-        await RealTimeDB.ref('channels/'+key).set(newChannel);
-        return key;
-    }
-    catch (err){
-        /**
-         * is it better to catch the error and rethrow it or
-         * just leave it propogate.
-         */
-        throw err;
-    }
-}
-export {getMessages, RealTimeDB};
-export {getUserData, getChannels};
-export {attachChannel, channelExists_id};
-export {addChannel};

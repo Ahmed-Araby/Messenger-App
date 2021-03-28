@@ -4,7 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {RealTimeDB, RealTimeDb} from "../../FireBase/FireBase";
 import {userContext} from "../../Providers/UserProvider";
-import {addChannel} from "../../FireBase/RealTimeDb";
+import {addChannel} from "../../FireBase/RealTimeDB/RTDB_channelLevel";
+import {userHasChannel_name,
+        attachChannel}  from "../../FireBase/RealTimeDB/RTDB_userLevel";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,22 +24,18 @@ export function CreateChannel() {
 
   const createChannel = async (e)=>{
     try{
-        let snapshot = await RealTimeDB.ref('users/' + user.uid + "/channels/")
-        .orderByChild('name')
-        .equalTo(channelName)
-        .get();
-
+        let snapshot = await userHasChannel_name(user, channelName);
         if(!snapshot.val()){
-            // create channel
+            // create channel in the channels document.
             let key = await addChannel(channelName, user.uid);
             let newChannel = {
                 id:key, 
                 name:channelName   
             };
-            await RealTimeDB.ref('users/' + user.uid + "/channels/"+key).set(newChannel);
+            // attach channel for the user.
+            await attachChannel(newChannel, user.uid); //RealTimeDB.ref('users/' + user.uid + "/channels/"+key).set(newChannel);
             alert("channel created successfuly ");
         }
-
         else{
             // till the user
             alert("You already have channel with the same name");

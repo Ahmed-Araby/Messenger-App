@@ -1,6 +1,6 @@
 import React , {createContext, useState}from 'react'
 import {fireAuth} from "../FireBase/FireBase";
-import {getUserData} from "../FireBase/RealTimeDb";
+import {getUserData} from "../FireBase/RealTimeDB/RTDB_userLevel";
 
 /**
  * this context is an object 
