@@ -20,6 +20,7 @@ to practice my new skills in React and FireBase.
 ## URL
 * https://facebook-messengr-clone.web.app
 * NOTE: if you can not use the app this may be because the free firebase quota ended
+* NOTE: sign in with google Only.
 
 ## want to use the app:
 * signin with your google account.
